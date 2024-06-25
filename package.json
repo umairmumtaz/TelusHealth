@@ -1,0 +1,14 @@
+{
+  "name": "telushealth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Umair Mumtaz",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^13.12.0"
+  }
+}
