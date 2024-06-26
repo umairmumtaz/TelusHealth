@@ -2,7 +2,7 @@
 // The describe() function is used to group related test cases together.
 // The it() function is used to define an individual test case.
 
-describe('template spec', () => {
+describe('SauceDemo Spec', () => {
 
   // This is a setup function that runs before each test case.
   // It visits the web application's homepage before each test case.
@@ -15,7 +15,7 @@ describe('template spec', () => {
   // This is the first test case.
   // It logs in to the web application and verifies that the user is redirected to the Products page.
   it('Test1', () => {
-    login(userNAme, password);
+      login(userNAme, password );
         
   })
 
@@ -26,6 +26,9 @@ describe('template spec', () => {
 
     login(userNAme, password);
     addFirstThreeProducts();
+    cy.get('a[data-test^="shopping-cart-link"]').should('exist').click()
+    cy.get('button[data-test^="remove-sauce-labs"]').first().click()
+    cy.get('button[data-test="checkout"]').should('exist').click()
     checkout();
     
      
@@ -37,6 +40,8 @@ describe('template spec', () => {
   it('Test3', () => {
     login(userNAme, password);
     makeTotalOrder();
+    cy.get('a[data-test^="shopping-cart-link"]').should('exist').click()
+    cy.get('button[data-test="checkout"]').should('exist').click()
     checkout();
   
   })
@@ -89,10 +94,7 @@ function makeTotalOrder() {
 
 // This function comples a the checkout process and validates the required elements.
 function checkout() {
-  cy.get('a[data-test^="shopping-cart-link"]').should('exist').click()
-  cy.get('button[data-test^="remove-sauce-labs"]').first().click()
-  cy.get('button[data-test="checkout"]').should('exist').click()
-
+ 
   cy.get('input[data-test="firstName"]').type('Umair')
   cy.get('input[data-test="lastName"]').type('Mumtaz')
   cy.get('input[data-test="postalCode"]').type('12345')
@@ -107,12 +109,11 @@ function checkout() {
 
 //This function is Not used so far, but i have craeted to Retrive the Password Dynamically from the Website.
 function getPassword() {
-    cy.get('div[data-test="login-password"]').then(($password) => {
-    // store the password as text
-    console.log($password.text())
-    return $password.text()
-
-  })
-
-
+  let getText;
+  cy.get('div[class="login_password"] h4').then(($value) => {
+    getText = $value.text().replace('Password for all users:', '');
+  }).then(() => {
+    return getText.toString();
+  });
+    
 }
