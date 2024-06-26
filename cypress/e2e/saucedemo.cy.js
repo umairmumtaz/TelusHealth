@@ -26,12 +26,12 @@ describe('SauceDemo Spec', () => {
 
     login(userNAme, password);
     addFirstThreeProducts();
+    //clicking shoping Cart
     cy.get('a[data-test^="shopping-cart-link"]').should('exist').click()
+    //Removing the first item as per the test case.
     cy.get('button[data-test^="remove-sauce-labs"]').first().click()
-    cy.get('button[data-test="checkout"]').should('exist').click()
     checkout();
-    
-     
+         
   })
 
   // This is the third test case.
@@ -40,8 +40,8 @@ describe('SauceDemo Spec', () => {
   it('Test3', () => {
     login(userNAme, password);
     makeTotalOrder();
+    //clicking shoping Cart
     cy.get('a[data-test^="shopping-cart-link"]').should('exist').click()
-    cy.get('button[data-test="checkout"]').should('exist').click()
     checkout();
   
   })
@@ -95,6 +95,8 @@ function makeTotalOrder() {
 // This function comples a the checkout process and validates the required elements.
 function checkout() {
  
+  cy.get('button[data-test="checkout"]').should('exist').click()
+
   cy.get('input[data-test="firstName"]').type('Umair')
   cy.get('input[data-test="lastName"]').type('Mumtaz')
   cy.get('input[data-test="postalCode"]').type('12345')
